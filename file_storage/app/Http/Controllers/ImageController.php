@@ -22,7 +22,7 @@ class ImageController extends Controller
             'featured_image' => 'required|file|max:7000', // max 7MB
         ]);
 
-        $path = Storage::putFile(
+        $filepath = Storage::putFile(
             'public/images/profile',
             $request->file('featured_image')
         );
