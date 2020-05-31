@@ -52,6 +52,7 @@ class UserController extends Controller
         $user = $request->user();
         $tokenResult = $user->createToken('Personal Access Token');
         //print_r('Token Result : ' . $tokenResult);
+        Log::info($tokenResult);
         $token = $tokenResult->token;
         if ($request->remember_me) {
             $token->expires_at = Carbon::now()->addWeeks(1);
@@ -59,6 +60,7 @@ class UserController extends Controller
         $token->save();
 
         //print_r('Token : ' . $token);
+        Log::info($token);
 
         return response()->json([
             'message'               => 'Authorization Granted',
@@ -69,4 +71,12 @@ class UserController extends Controller
             )->toDateTimeString()
         ]);
     }
+
+    public function test() {
+        return response()->json(['status' => 'OK'], 200);
+    }
+
+    public function unauthorized() { 
+        return response()->json("unauthorized", 401); 
+    } 
 }
